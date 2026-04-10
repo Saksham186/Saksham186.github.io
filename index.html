@@ -1,170 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saksham Anand</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Saksham Anand | Data Science & ML</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
     <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
     <style>
         :root {
-            --background-color: #f9f9f9;
-            --text-color: #333;
-            --header-background: #333;
-            --header-text: white;
-            --link-color: #007bff;
-            --link-hover: #0056b3;
-            --button-background: #007bff;
-            --button-hover: #0056b3;
-            --card-background: #fff;
-            --box-shadow: rgba(0, 0, 0, 0.1);
-        }
-
-        [data-theme="dark"] {
-            --background-color: #121212;
-            --text-color: #e0e0e0;
-            --header-background: #1f1f1f;
-            --header-text: #e0e0e0;
-            --link-color: #bb86fc;
-            --link-hover: #3700b3;
-            --button-background: #bb86fc;
-            --button-hover: #3700b3;
-            --card-background: #1f1f1f;
-            --box-shadow: rgba(255, 255, 255, 0.1);
+            --primary-glow: #bb86fc;
+            --secondary-glow: #03dac6;
+            --bg-dark: #0f0f12;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-main: #e0e0e0;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animated Background Gradient */
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0f0f12 100%);
+            z-index: -1;
         }
 
         header {
-            background-color: var(--header-background);
-            color: var(--header-text);
-            padding: 10px 0;
-            text-align: center;
+            background: rgba(15, 15, 18, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            transition: background-color 0.3s, color 0.3s;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
+            gap: 30px;
+            list-style: none;
+            padding: 0;
         }
 
-        nav ul li {
-            margin: 0 10px;
-        }
-
-        nav ul li a {
-            color: var(--header-text);
+        nav a {
+            color: var(--text-main);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
         }
 
-        nav ul li a:hover {
-            color: var(--link-hover);
-        }
+        nav a:hover { color: var(--primary-glow); }
 
-        section {
-            padding: 100px 20px 60px; /* Maintain spacing */
-            position: relative; /* Ensure positioning context */
-        }
-        
-        [data-theme="dark"] {
-            scroll-padding-top: 70px; /* Creates a scrolling offset for fixed header */
-        }
-
-
-
-        #about, #contact, #gallery, #projects, #blog, #services, #skills {
-            padding: 60px 20px;
-            background-color: var(--card-background);
-            margin: 20px 0;
-            border-radius: 8px;
-            box-shadow: 0 0 10px var(--box-shadow);
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: var(--text-color);
-        }
-
-        p {
-            text-align: center;
-        }
-
-        .image-container {
+        /* Hero Section */
+        .hero {
+            height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .image-container img {
-            width: 30%;
-            transition: transform 0.3s;
-            border-radius: 8px;
-        }
-
-        .image-container img:hover {
-            transform: scale(1.1);
-        }
-
-        footer {
-            background-color: var(--header-background);
-            color: var(--header-text);
+            align-items: center;
             text-align: center;
-            padding: 10px 0;
-            position: relative;
-            bottom: 0;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin: 0;
+            background: linear-gradient(to right, #bb86fc, #03dac6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 900px;
+            transition: transform 0.4s ease, border 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border: 1px solid var(--primary-glow);
+        }
+
+        /* Skill Bars Upgraded */
+        .skill-container { margin-bottom: 25px; }
+        .progress-bg {
+            background: rgba(255,255,255,0.1);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        /* Image Grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+
+        .project-img {
             width: 100%;
-            transition: background-color 0.3s, color 0.3s;
+            border-radius: 12px;
+            filter: grayscale(40%);
+            transition: 0.5s;
         }
 
-        a {
-            text-decoration: none;
-            color: var(--link-color);
-            transition: color 0.3s;
+        .project-img:hover {
+            filter: grayscale(0%);
+            transform: scale(1.05);
         }
 
-        a:hover {
-            color: var(--link-hover);
-        }
+        footer { text-align: center; padding: 40px; opacity: 0.6; }
 
-        #gallery {
-            text-align: center;
-        }
-
-        #gallery img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
     </style>
 </head>
 
-<body data-theme="dark">
+<body>
+    <div class="bg-glow"></div>
+
     <header>
-        <h1>Saksham Anand</h1>
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
@@ -175,141 +159,92 @@
         </nav>
     </header>
 
-    <section id="about">
-        <div style="height: 80px; visibility: hidden;"></div> <!-- Spacer -->
-        <h2>About Me</h2>
-        <p>I am a 3rd year Computer Science student specializing in Software Development at the University of Alberta. Passionate about building technology that solves real-world problems.</p>
-        <p>Check out my work on <a href="https://github.com/Saksham186?tab=repositories" target="_blank">GitHub</a>.</p>
+    <section class="hero" data-aos="zoom-in">
+        <h1>Saksham Anand</h1>
+        <p style="font-size: 1.5rem; opacity: 0.8;">Data Science Intern | AI4DA</p>
+        <div style="margin-top: 20px;">
+            <a href="#projects" style="background: var(--primary-glow); color: black; padding: 12px 30px; border-radius: 30px; font-weight: bold;">View My Work</a>
+        </div>
     </section>
 
+    <section id="about" class="glass-card" data-aos="fade-up">
+        <h2>About Me</h2>
+        <p>Currently at the University of Alberta specializing in <b>Software Development</b>. I bridge the gap between complex data and actionable insights at <b>AI4DA</b>.</p>
+        <div style="text-align: center; font-size: 2rem; gap: 20px; display: flex; justify-content: center; margin-top: 20px;">
+            <a href="https://github.com/Saksham186" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/sam186" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </section>
 
     <div id="skills-root"></div>
-
-
     <div id="projects-root"></div>
 
-
-   
-
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <p>You can reach me via email at anandsaksham804@gmail.com</p>
+    <section id="contact" class="glass-card" data-aos="flip-left" style="text-align: center;">
+        <h2>Let's Connect</h2>
+        <p>Interested in working together? Drop me an email.</p>
+        <a href="mailto:anandsaksham804@gmail.com" style="color: var(--secondary-glow); font-size: 1.2rem;">anandsaksham804@gmail.com</a>
     </section>
 
     <footer>
-        <p>&copy; 2024 Saksham Anand. All rights reserved.</p>
+        <p>&copy; 2026 Saksham Anand. Built with React & Passion.</p>
     </footer>
+
     <script type="text/babel">
-        // Skills Component
-        const SkillBar = ({ skill, level }) => {
-            return (
-                <div style={{ marginBottom: '15px' }}>
-                    <h4>{skill}</h4>
-                    <div style={{
-                        background: '#e0e0e0',
-                        borderRadius: '8px',
-                        overflow: 'hidden',
-                        height: '20px',
-                        width: '100%'
-                    }}>
-                        <div style={{
-                            background: '#007bff',
-                            width: `${level}%`,
-                            height: '100%',
-                            transition: 'width 0.5s ease'
-                        }}></div>
-                    </div>
-                </div>
-            );
-        };
+        // Initialize AOS
+        AOS.init({ duration: 1000, once: true });
 
         const Skills = () => {
             const skillsData = [
-                { skill: 'Python', level: 90 },
-                { skill: 'JavaScript', level: 80 },
-                { skill: 'Machine Learning', level: 70 }
+                { skill: 'Python (Pandas/NumPy)', level: 95 },
+                { skill: 'Machine Learning (TensorFlow/Keras)', level: 85 },
+                { skill: 'Data Engineering & ETL', level: 80 },
+                { skill: 'JavaScript (React)', level: 75 }
             ];
 
             return (
-                <section id="skills">
-                    <h2>My Skills</h2>
-                    {skillsData.map((skill, index) => (
-                        <SkillBar key={index} skill={skill.skill} level={skill.level} />
+                <section id="skills" class="glass-card" data-aos="fade-right">
+                    <h2 style="text-align: center;">Technical Expertise</h2>
+                    {skillsData.map((s, i) => (
+                        <div key={i} className="skill-container">
+                            <div style={{display:'flex', justifyContent:'space-between'}}>
+                                <span>{s.skill}</span>
+                                <span>{s.level}%</span>
+                            </div>
+                            <div className="progress-bg">
+                                <div className="progress-fill" style={{width: `${s.level}%`}}></div>
+                            </div>
+                        </div>
                     ))}
+                </section>
+            );
+        };
+
+        const Projects = () => {
+            const projectData = [
+                { title: 'Renewable Energy Prediction', desc: 'Time-series forecasting for sustainable power grids.', img: '../static/222.jpg', link: 'https://github.com/Saksham186/Renewable-energy-prediction' },
+                { title: 'Object Detection CNN', desc: 'Real-time object classification using optimized Neural Networks.', img: '../static/333.jpg', link: 'https://github.com/Saksham186/CNN' },
+                { title: 'AI4DA Pipeline', desc: 'Automated data extraction from unstructured utility datasets.', img: '../static/111.jpg', link: '#' }
+            ];
+
+            return (
+                <section id="projects" style={{padding: '60px 20px'}}>
+                    <h2 style={{textAlign:'center', fontSize: '2.5rem', marginBottom: '40px'}}>Selected Projects</h2>
+                    <div className="project-grid">
+                        {projectData.map((p, i) => (
+                            <div key={i} className="glass-card" style={{margin: '0'}} data-aos="fade-up" data-aos-delay={i * 100}>
+                                <img src={p.img} className="project-img" alt={p.title} />
+                                <h3 style={{marginTop:'20px'}}>{p.title}</h3>
+                                <p style={{textAlign:'left'}}>{p.desc}</p>
+                                <a href={p.link} target="_blank">Explore Code <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        ))}
+                    </div>
                 </section>
             );
         };
 
         ReactDOM.render(<Skills />, document.getElementById('skills-root'));
-
-        // Projects Component
-        const Project = ({ title, description, link, image }) => (
-            <div style={{
-                padding: '15px',
-                border: '1px solid #ddd',
-                marginBottom: '20px',
-                borderRadius: '8px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                maxWidth: '600px',
-                margin: '0 auto',
-            }} className="project-item">
-                <h3>{title}</h3>
-                <p>{description}</p>
-                <a href={link} target="_blank" style={{ marginBottom: '15px' }}>View on GitHub</a>
-                <img
-                    src={image}
-                    alt={title}
-                    style={{
-                        maxWidth: '100%',
-                        height: 'auto',
-                        borderRadius: '8px',
-                        transition: 'transform 0.3s',
-                    }}
-                    className="project-img"
-                />
-            </div>
-);
-
-
-        const Projects = () => {
-            const projectData = [
-                {
-                    title: 'Image Processor',
-                    description: 'A Python-based tool for image processing.',
-                    link: 'https://github.com/Saksham186/Image-Processor-',
-                    image: '../static/111.jpg'
-                },
-                {
-                    title: 'Blackjack Game',
-                    description: 'A Python-based Blackjack game.',
-                    link: 'https://github.com/Saksham186/OOPS_blackjack',
-                    image: '../static/tech3.jpg'
-                },
-                { title: 'Renewable Energy Prediction', description: 'ML model for predicting renewable energy.', link: 'https://github.com/Saksham186/Renewable-energy-prediction',image: '../static/222.jpg'},
-                { title: 'Convolutional Neural Network (CNN) for Object Detection', description: 'Built a CNN model using TensorFlow/Keras to detect objects in video frames with real-time performance optimization.', link: 'https://github.com/Saksham186/CNN',image: '../static/333.jpg'}
-
-            ];
-
-            return (
-                <section id="projects">
-                    <h2>Projects</h2>
-                    {projectData.map((project, index) => (
-                        <Project
-                            key={index}
-                            title={project.title}
-                            description={project.description}
-                            link={project.link}
-                            image={project.image}
-                        />
-                    ))}
-                </section>
-            );
-        };
-
         ReactDOM.render(<Projects />, document.getElementById('projects-root'));
     </script>
 </body>
-
 </html>
